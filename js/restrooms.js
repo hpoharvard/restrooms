@@ -1,6 +1,6 @@
-// code by Giovanni Zambotti - 23 January 2020
-// update to ESRI JS 4.14 - 23 January 2020
-// code update - 13 April 2020
+// code by Giovanni Zambotti - 29 October 2020
+// update to ESRI JS 4.17 - 29 October 2020
+// code update - 29 October 2020
 
 require([
       "esri/WebMap", 
@@ -194,7 +194,7 @@ require([
           list.appendChild(li);
         });
                 
-        var zcontent = popupDiv.outerHTML + "<br/><br/>Total number of restrooms: " + rCount + "<br />Location description: " + list.innerHTML + "<br />USI Tub: " + rusitub + "<br />" + popupHref.outerHTML;
+        var zcontent = popupDiv.outerHTML + "<br/><br/>Total number of restrooms: " + rCount + "<br />Location description: " + list.innerHTML + "<br />Tub: " + rusitub + "<br />" + popupHref.outerHTML;
         
         view.popup.open({
           title: attributes.primary_building_name,
@@ -321,7 +321,7 @@ require([
           list.appendChild(li);
         });
                 
-        var zcontent = popupDiv.outerHTML + "<br/><br/>Total number of restrooms: " + rCount + "<br />Floors location: "+ list.innerHTML + "<br />USI Tub: " + rusitub + "<br />" + popupHref.outerHTML;
+        var zcontent = popupDiv.outerHTML + "<br/><br/>Total number of restrooms: " + rCount + "<br />Location description: "+ list.innerHTML + "<br />Tub: " + rusitub + "<br />" + popupHref.outerHTML;
                 
         view.center = [ results.features[0].geometry.centroid.longitude, results.features[0].geometry.centroid.latitude]
         console.log(view.center)
