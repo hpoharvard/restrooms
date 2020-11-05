@@ -133,11 +133,13 @@ require([
       // Add the locate widget to the top left corner of the view
       view.ui.add(locateBtn, {position: "top-left"});
 
-      // add on mouse click on a map, clear popup and open it     
+      // add on mouse click on a map, clear popup and open it 
+
       view.on("click", function(evt) {        
         evt.stopPropagation()                       
         var infoBuildings = document.getElementById("infoBuildings");  
-        //console.log(infoBuildings)          
+        //console.log(infoBuildings)
+        // don't open popup before campus area selection          
         if(infoBuildings.length == 1){
           view.popup.visible = false;
           //alert("Please, select a building from the pulldown menu!")
