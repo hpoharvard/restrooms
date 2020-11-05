@@ -40,10 +40,13 @@ require([
       function(WebMap, Map, MapView, esriConfig, OAuthInfo, esriId, Locate, FeatureLayer, GraphicsLayer, Graphic, SimpleRenderer, SimpleMarkerSymbol, 
       SimpleFillSymbol, UniqueValueRenderer, Extent, Popup, VectorTileLayer, CalciteMaps, CalciteMapsArcGIS) {
 
-      esriConfig.portalUrl = "https://devsmap.cadm.harvard.edu/portal";
-      var oAuthInfo = new OAuthInfo({appId: "VQDyKaueP0Odejnm"});
+      var regions = document.getElementById("infoRegions");
+      var infoBuildings = document.getElementById("infoBuildings");
 
-      esriId.registerOAuthInfos([oAuthInfo]);    
+      esriConfig.portalUrl = "https://prodsmap.cadm.harvard.edu/portal";
+      //var oAuthInfo = new OAuthInfo({appId: "VQDyKaueP0Odejnm"});
+
+      //esriId.registerOAuthInfos([oAuthInfo]);    
       
       const regionsList = {
         Allston: [[-71.1237912, 42.363806],[16]],
@@ -65,7 +68,8 @@ require([
         url: "https://www.arcgis.com/sharing/rest/content/items/7dc6cea0b1764a1f9af2e679f642f0f5/resources/styles/root.json"
       });     
       
-      var grestroomsURL = "https://devtmap.cadm.harvard.edu/server/rest/services/Hosted/all_gender_restrooms/FeatureServer"
+      //var grestroomsURL = "https://devtmap.cadm.harvard.edu/server/rest/services/Hosted/all_gender_restrooms/FeatureServer"
+      var grestroomsURL = "https://prodtmap.cadm.harvard.edu/server/rest/services/Hosted/inclusive_restrooms/FeatureServer"
       var grestroomsPopup = { // autocasts as new PopupTemplate()
         title: "{buildingroomname}"
       };
@@ -93,7 +97,7 @@ require([
       var map = new WebMap({
         portalItem: {
           // autocasts as new PortalItem()
-          id: "9c4dc6400b1b48f1b5a68eb7e485d888"
+          id: "5ecfa491632743b3a72faeb6a11381a5"
         },
         /*basemap: "topo",*/
         layers: [grestroomsLayer, resultsLayer]
@@ -134,13 +138,32 @@ require([
         evt.stopPropagation()                       
         var infoBuildings = document.getElementById("infoBuildings");  
         //console.log(infoBuildings)          
-        infoBuildings.options[0].selected = true;        
-        var screenPoint = evt.screenPoint;        
-        // set location for the popup
-        view.popup.location = evt.mapPoint;
-        view.popup.visible = false;
-        view.hitTest(screenPoint).then(getSingleBuilding);                
+        if(infoBuildings.length == 1){
+          view.popup.visible = false;
+          //alert("Please, select a building from the pulldown menu!")
+          //showalert("test")
+        }          
+        else{
+          infoBuildings.options[0].selected = true;        
+          var screenPoint = evt.screenPoint;        
+          // set location for the popup
+          view.popup.location = evt.mapPoint;
+          view.popup.visible = false;
+          view.hitTest(screenPoint).then(getSingleBuilding);  
+        }                
       });
+
+      /*function showalert(message) {
+        var div = document.getElementById('foo');
+        console.log(div)
+        var newNode = document.createElement('div');
+        newNode.innerHTML = '<div id="alertdiv" class="alert alert-warning"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>';
+        div.appendChild(newNode)
+          //document.getElementById('foo').append('')
+          setTimeout(function() { // this will automatically close the alert and remove this if the users doesnt close it in 5 secs
+            document.getElementById('alertdiv').remove();
+          }, 5000);
+        }*/
       
       // create the popup and select the building footprint          
       function getSingleBuilding(response) {
@@ -199,7 +222,10 @@ require([
         view.popup.open({
           title: attributes.primary_building_name,
           content:  zcontent
-        });        
+        });
+
+        regions.value = attributes.campus_area;
+        infoBuildings.value = attributes.primary_building_name;        
       } 
 
       /********************************
@@ -213,8 +239,7 @@ require([
         return grestroomsLayer.queryFeatures(query);        
       }
                  
-      var regions = document.getElementById("infoRegions");
-      var infoBuildings = document.getElementById("infoBuildings");  
+        
 
       regions.addEventListener("change", function() {        
         var selectedRegions = regions.options[regions.selectedIndex].value;        
