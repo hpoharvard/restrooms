@@ -44,9 +44,9 @@ require([
       var infoBuildings = document.getElementById("infoBuildings");
 
       esriConfig.portalUrl = "https://prodsmap.cadm.harvard.edu/portal";
-      //var oAuthInfo = new OAuthInfo({appId: "VQDyKaueP0Odejnm"});
+      var oAuthInfo = new OAuthInfo({appId: "yE6vvgMdxc3uxoeD"});
 
-      //esriId.registerOAuthInfos([oAuthInfo]);    
+      esriId.registerOAuthInfos([oAuthInfo]);    
       
       const regionsList = {
         Allston: [[-71.1237912, 42.363806],[16]],
