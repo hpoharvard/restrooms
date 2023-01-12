@@ -43,8 +43,8 @@ require([
       var regions = document.getElementById("infoRegions");
       var infoBuildings = document.getElementById("infoBuildings");
 
-      esriConfig.portalUrl = "https://prodsmap.cadm.harvard.edu/portal";
-      var oAuthInfo = new OAuthInfo({appId: "yE6vvgMdxc3uxoeD"});
+      esriConfig.portalUrl = "https://mapprod.cadm.harvard.edu/portal";
+      var oAuthInfo = new OAuthInfo({appId: "1zsUh9usVc83apuu"});
 
       esriId.registerOAuthInfos([oAuthInfo]);    
       
@@ -69,7 +69,7 @@ require([
       });     
       
       //var grestroomsURL = "https://devtmap.cadm.harvard.edu/server/rest/services/Hosted/all_gender_restrooms/FeatureServer"
-      var grestroomsURL = "https://prodtmap.cadm.harvard.edu/server/rest/services/Hosted/inclusive_restrooms/FeatureServer"
+      var grestroomsURL = "https://mapprod.cadm.harvard.edu/server/rest/services/Hosted/inclusive_restrooms/FeatureServer"
       var grestroomsPopup = { // autocasts as new PopupTemplate()
         title: "{buildingroomname}"
       };
@@ -97,7 +97,8 @@ require([
       var map = new WebMap({
         portalItem: {
           // autocasts as new PortalItem()
-          id: "5ecfa491632743b3a72faeb6a11381a5"
+          //id: "5ecfa491632743b3a72faeb6a11381a5"
+          id: "8eafa3aefad74756be8e827ef136de76"
         },
         /*basemap: "topo",*/
         layers: [grestroomsLayer, resultsLayer]
@@ -138,7 +139,7 @@ require([
       view.on("click", function(evt) {        
         evt.stopPropagation()                       
         var infoBuildings = document.getElementById("infoBuildings");  
-        //console.log(infoBuildings)
+        console.log(infoBuildings)
         // don't open popup before campus area selection          
         if(infoBuildings.length == 1){
           view.popup.visible = false;
@@ -194,7 +195,7 @@ require([
         console.log(image)
         // create content for the popup
         var popupDiv = document.createElement("img")
-        var zimg = "https://prodsmap.cadm.harvard.edu/images/Buildings/" + image;
+        var zimg = "https://map.harvard.edu/images/indoors/Buildings/" + image;
         popupDiv.src = zimg;
         popupDiv.alt = attributes.primary_building_name + " building image";
 
@@ -324,7 +325,7 @@ require([
         var obj = results.features[0].attributes;
         
         var popupDiv = document.createElement("img")
-        var zimg = "https://prodsmap.cadm.harvard.edu/images/Buildings/" + results.features[0].attributes.root + ".jpg";
+        var zimg = "https://map.harvard.edu/images/indoors/Buildings/" + results.features[0].attributes.root + ".jpg";
         popupDiv.src = zimg;
         popupDiv.alt = results.features[0].attributes.primary_building_name + " building image";
 
